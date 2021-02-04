@@ -15,7 +15,7 @@
 "Fixed Frequency", 0 0 1 ACED op;
 "Fixed Frequency Range", 1 0 7 ACED op;
 "Frequency Range Fine", 2 0 15 ACED op;
-"Operator Waveform", 2 0 7 ACED op;
+"Operator Waveform", 3 0 7 ACED op;
 "EG Shift", 4 0 3 ACED op;
 Algorithm, 52 0 7 VCED voice; 
 Feedback, 53 0 7 VCED voice;

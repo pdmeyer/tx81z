@@ -1,5 +1,5 @@
 inlets = 1;
-outlets = 0;
+outlets = 1;
 autowatch = 1;
 
 var p = this.patcher;
@@ -14,10 +14,18 @@ var acedops = [];
 
 var opOrder = [4,2,3,1]; //there is a bug in the tx81z's firmware which dumps the operators in this weird order
 var vcedOpParams = ["AR", "D1R", "D2R", "RR", "D1L", "LS", "RS", "EGS", "AME", "KVS", "OUT", "Freq", "DET"];
-var vcedParams = ["ALG", "Feeback", "LFOSpeed", "LFODelay", "PModDepth", "AModDepth", "LFOSync", "LFOWave", "PModSens", "AMS", "Transpose", "PolyMode", "PBendRange", "PortaMode", "PortaTime", "FCVolume", "Sustain", "Portamento", "Chorus", "MWPitch", "MWAmplitude", "BCPitch", "BCAmplitude", "BCPitchBias", "BCEGBias"
-]
+var vcedOpLongNames = ["Attack Rate", "Decay 1 Rate", "Decay 2 Rate", "Release Rate", "Decay 1 Level", "Level Scaling", "Rate Scaling", "EG Bias Sensitivity",
+  "Amplitude Modulation Enable", "Key Velocity Sensitivity", "Operator Output Level", "Frequency", "Detune"];
+var vcedParams = ["ALG", "Feeback", "LFOSpeed", "LFODelay", "PModDepth", "AModDepth", "LFOSync", "LFOWave", "PModSens", "AMS", "Transpose", "PolyMode",
+ "PBendRange", "PortaMode", "PortaTime", "FCVolume", "Sustain", "Portamento", "Chorus", "MWPitch", "MWAmplitude", "BCPitch", "BCAmplitude", "BCPitchBias", "BCEGBias"]
+var vcedLongNames = ["Algorithm", "Feedback", "LFO Speed", "LFO Delay", "Pitch Modulation Depth", "Amplitude Modulation Depth", "LFO Sync", "LFO Wave",
+ "Pitch Modulation Sensitivity", "Amplitude Modulation Sensitivity", "Transpose", "Mono/Poly", "Pitch Bend Range", "Portamento Mode", "Portamento Time",
+  "Foot Control Volume", "Sustain", "Portamento", "Chorus", "Modulation Wheel Pitch", "Modulation Wheel Amplitude", "Breath Control Pitch", "Breath Control Amplitude",
+  "Breath Control Pitch Bias", "Breath Control EG Bias"];
 var acedOpParams = ["FixedFreq", "FixedFreqRange", "FreqRangeFine", "OSW"];
+var acedOpLongNames = ["Fixed Frequency", "Fixed Frequency Range", "Frequency Range Fine", "Operator Waveform", "EG Shift"];
 var acedParams = ["ReverbRate", "FCPitch", "FCAmplitude"];
+var acedLongNames = ["Reverb Rate", "Foot Controller Pitch", "Foot Controller Amplitude"];
 
 /*-------------------------------------------------------------------------------------------------------------*/
 
@@ -39,6 +47,7 @@ function vced() {
   for (var j = 0; j < vcedops.length; j++){
     for(var k = 0; k < vcedOpParams.length; k++){
       patch.replace("vced::ops::"+opOrder[j]+"::"+vcedOpParams[k], vcedops[j][k]); //populate the dict 
+      outlet(0,"op "+opOrder[j]+" "+"\""+vcedOpLongNames[k]+"\""+" "+vcedops[j][k]);
     }
   }
 
@@ -49,6 +58,7 @@ function vced() {
   // store vced voice data
   for (var m = 0; m < vcedParams.length; m++) {
     patch.replace("vced::voice::"+vcedParams[m], vcedpars[m]);
+    outlet(0,"voice "+" "+"\""+vcedLongNames[m]+"\""+" "+vcedpars[m]);
   }
 }
 
@@ -72,6 +82,7 @@ function aced() { //
   for(var j = 0; j < acedops.length; j++) {
     for (var k = 0; k < acedOpParams.length; k++) {
       patch.replace("aced::ops::"+opOrder[j]+"::"+acedOpParams[k], acedops[j][k]);
+      outlet(0,"op "+opOrder[j]+" "+"\""+acedOpLongNames[k]+"\""+" "+acedops[j][k]);
     }
   }
   
@@ -82,6 +93,7 @@ function aced() { //
   // store aced voice data
   for(var m = 0; m < acedParams.length; m++) {
     patch.replace("aced::voice::"+acedParams[m], acedpars[m]);
+    outlet(0,"voice "+" "+"\""+acedLongNames[m]+"\""+" "+acedpars[m]);
   }
 }
 
