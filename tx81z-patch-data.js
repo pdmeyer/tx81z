@@ -46,7 +46,7 @@ function vced() {
   // store vced operator data
   for (var j = 0; j < vcedops.length; j++){
     for(var k = 0; k < vcedOpParams.length; k++){
-      patch.replace("vced::ops::"+opOrder[j]+"::"+vcedOpParams[k], vcedops[j][k]); //populate the dict 
+      patch.replace("vced::ops::"+opOrder[j]+"::"+vcedOpLongNames[k], vcedops[j][k]); //populate the dict 
       outlet(0,"op "+opOrder[j]+" "+"\""+vcedOpLongNames[k]+"\""+" "+vcedops[j][k]);
     }
   }
@@ -78,10 +78,10 @@ function aced() { //
     acedops[i] = a.slice(start,start+5);
   }
   
-  // store aced oparator data
+  // store aced operator data
   for(var j = 0; j < acedops.length; j++) {
     for (var k = 0; k < acedOpParams.length; k++) {
-      patch.replace("aced::ops::"+opOrder[j]+"::"+acedOpParams[k], acedops[j][k]);
+      patch.replace("aced::ops::"+opOrder[j]+"::"+acedOpLongNames[k], acedops[j][k]);
       outlet(0,"op "+opOrder[j]+" "+"\""+acedOpLongNames[k]+"\""+" "+acedops[j][k]);
     }
   }
