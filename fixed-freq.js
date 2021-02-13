@@ -61,17 +61,15 @@ function freq(f) {
     post("error. fixed frequncy value must between 8 and 32640");
   } else {
     var ran;
-    var range;
-    var count = 0;
+    var range = 0;
     for(var i in ranges) {
       var r = ranges[i];
       if (f < r.max) {
-        post(f+" "+r.max+"\n");
-        range = i;
+        // post(f+" "+r.max+"\n");
         ran = r;
         break;
       }
-      count++
+      range++
     }
     
     var crsSteps = [];
@@ -83,16 +81,19 @@ function freq(f) {
     // post(crsSteps+"\n");
     // var min = 2049;
     var coars;
-    for (var j = 0; j < crsSteps.length; j++) {
-      var d = crsSteps[j] - f;
+    for (var j = crsSteps.length; j >= 0; j--) {
+      var d = f- crsSteps[j];
       if(d >= 0) {
         // min = d;
-        coars = j-1;
+        coars = j;
         break;
       }
     }
     var fine = Math.floor((f - crsSteps[coars]) / ran.fin);
-    outlet(0, "sys", count, coars, fine);
+    range *= 127/7;
+    coars *= 127/15;
+    fine *= 127/15;
+    outlet(0, "sys", range, coars, fine);
     // post("range = "+count+" coarse = "+coars+" fine = "+fine+"\n");
   }
 }
@@ -110,7 +111,7 @@ function crsfine(rng, coars, fine) {
     }
     c++
   }
-  post(ran.min+"\n");
+
   if (coars < 2) {
     cFreq = ran.min + (coars * (ran.crs/2))
   } else {

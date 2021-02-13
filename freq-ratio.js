@@ -98,8 +98,9 @@ function calcCoarseFine (_rat) {
         group = i;
         order = Math.round(ord);
       }
-    } 
+    }
 
+    if(debug) post("min: "+min+" | group: "+group+" | order: "+order+"\n"); 
     // calculate coarse and fine using group + order
     if(order < 8) {
       fine = order % 8;
