@@ -22,7 +22,7 @@ function env() {
 
   //"n" = new dump from tx | "e" = editing with mc.function 
   // if "n", don't output to tx
-   var mode = inl.splice(0,1); 
+  var mode = inl.splice(0,1).toString();
 
   //iterate through envelopes
   for(var h = 0; h < numEnvs; h++) {
