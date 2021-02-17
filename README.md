@@ -1,5 +1,5 @@
 # tx81z
-control a yamaha tx81z synthesizer using a nice GUI
+control a yamaha tx81z synthesizer using a nice GUI (and/or MIDI controller)
 
 the main patch is **tx81z-panel.maxpat**
 
